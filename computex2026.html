@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computex 2026 — 從零開始的完全指南</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --bg2: #ede7d8;
+    --ink: #1a1410;
+    --ink2: #4a3f30;
+    --ink3: #8a7a6a;
+    --accent: #c84b1f;
+    --accent2: #e07a3a;
+    --accent3: #2a5c8a;
+    --green: #2d6a4a;
+    --green-bg: #e8f5ee;
+    --blue-bg: #e8f0f8;
+    --orange-bg: #fdf0e8;
+    --red-bg: #fdf0f0;
+    --purple: #5a3a8a;
+    --purple-bg: #f0ebf8;
+    --border: rgba(26,20,16,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 400;
+    line-height: 1.8;
+    font-size: 16px;
+  }
+  .hero {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 80px 24px 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px);
+  }
+  .hero-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 16px; position: relative; }
+  .hero h1 { font-family: 'DM Sans', sans-serif; font-size: clamp(40px, 7vw, 76px); font-weight: 700; line-height: 1; margin-bottom: 20px; position: relative; letter-spacing: -0.03em; }
+  .hero h1 .cx-word { font-family: 'DM Sans', sans-serif; font-weight: 700; letter-spacing: -0.03em; font-style: normal; color: var(--bg); }
+  .hero h1 span { color: var(--accent2); font-style: normal; font-weight: 700; }
+  .cx { font-family: 'DM Sans', sans-serif; font-weight: 700; font-style: normal; color: var(--ink); }
+  .hero-sub { font-size: 17px; color: rgba(245,240,232,0.7); max-width: 520px; margin: 0 auto 36px; line-height: 1.7; position: relative; }
+  .hero-meta { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; position: relative; }
+  .hero-meta-item { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 8px 20px; font-size: 14px; }
+  .toc { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 24px; position: sticky; top: 0; z-index: 100; overflow-x: auto; }
+  .toc-inner { display: flex; gap: 0; max-width: 900px; margin: 0 auto; white-space: nowrap; }
+  .toc a { display: block; padding: 14px 16px; font-size: 13px; font-weight: 500; color: var(--ink2); text-decoration: none; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .wrapper { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section:last-child { border-bottom: none; }
+  .section-label { font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-bottom: 10px; }
+  h2 { font-family: 'DM Sans', sans-serif; font-size: clamp(26px, 4vw, 38px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; color: var(--ink); }
+  h2 .accent { color: var(--accent); }
+  h3 { font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--ink); }
+  p { margin-bottom: 1rem; color: var(--ink2); }
+  strong { color: var(--ink); font-weight: 700; }
+  .callout { border-radius: 12px; padding: 20px 24px; margin: 20px 0; border-left: 4px solid; }
+  .callout.orange { background: var(--orange-bg); border-color: var(--accent2); }
+  .callout.blue { background: var(--blue-bg); border-color: var(--accent3); }
+  .callout.green { background: var(--green-bg); border-color: var(--green); }
+  .callout-title { font-weight: 700; color: var(--ink); margin-bottom: 6px; font-size: 14px; }
+  .callout p { margin: 0; font-size: 14px; }
+  .overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin: 28px 0; }
+  .overview-card { background: var(--ink); color: var(--bg); border-radius: 12px; padding: 20px 16px; overflow: hidden; min-width: 0; }
+  .overview-card .oc-num { font-family: 'DM Sans', sans-serif; font-size: clamp(22px, 3.5vw, 30px); font-weight: 800; color: var(--accent2); line-height: 1; margin-bottom: 6px; word-break: break-all; }
+  .overview-card .oc-label { font-size: 12px; color: rgba(245,240,232,0.6); line-height: 1.4; }
+  .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin: 28px 0; }
+  .pillar-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 24px 20px; }
+  .pillar-icon { font-size: 28px; margin-bottom: 12px; }
+  .pillar-card h3 { font-size: 17px; margin-bottom: 8px; }
+  .pillar-card p { font-size: 14px; margin: 0; color: var(--ink2); }
+  .keynote-list { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; }
+  .keynote-item { display: flex; gap: 16px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; align-items: flex-start; }
+  .keynote-date { background: var(--ink); color: var(--bg); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .keynote-date.cancelled { background: #e0d8cc; color: var(--ink3); text-decoration: line-through; }
+  .keynote-info h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .keynote-info p { font-size: 13px; color: var(--ink2); margin: 0; }
+  .keynote-info .company { font-size: 12px; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+  .vendor-group { margin-bottom: 36px; }
+  .vendor-group-title { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; color: var(--ink3); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .vendor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+  .vendor-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .vendor-card .vname { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .vendor-card .vdesc { font-size: 12px; color: var(--ink2); line-height: 1.5; }
+  .vendor-card.new-vendor { border-color: #2d6a4a; border-width: 2px; }
+  .vendor-card.new-vendor .vname::after { content: ' 🆕'; font-size: 11px; }
+  .level-block { border-radius: 14px; padding: 28px; margin: 20px 0; }
+  .level-easy { background: #e8f5ee; border: 1px solid #b8dfc8; }
+  .level-mid { background: #e8f0f8; border: 1px solid #b8ccdf; }
+  .level-hard { background: #fdf0e8; border: 1px solid #f0d0b8; }
+  .level-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .level-badge { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; }
+  .badge-easy { background: var(--green); color: white; }
+  .badge-mid { background: var(--accent3); color: white; }
+  .badge-hard { background: var(--accent); color: white; }
+  .level-block h3 { font-size: 18px; margin-bottom: 12px; }
+  .level-block p { font-size: 14px; margin-bottom: 10px; }
+  .knowledge-items { list-style: none; padding: 0; }
+  .knowledge-items li { font-size: 14px; padding: 12px 16px; background: rgba(255,255,255,0.65); border-radius: 8px; margin-bottom: 8px; color: var(--ink2); line-height: 1.7; }
+  .knowledge-items li strong { color: var(--ink); display: block; margin-bottom: 2px; }
+  .advanced-block { background: var(--ink); color: var(--bg); border-radius: 14px; padding: 32px 28px; margin: 20px 0; }
+  .advanced-block h3 { color: var(--accent2); font-family: 'DM Sans', sans-serif; font-size: 20px; margin-bottom: 16px; }
+  .advanced-items { list-style: none; padding: 0; }
+  .advanced-items li { font-size: 14px; padding: 14px 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-bottom: 8px; color: rgba(245,240,232,0.85); line-height: 1.7; }
+  .advanced-items li strong { color: var(--accent2); display: block; margin-bottom: 2px; }
+  .sep { width: 40px; height: 3px; background: var(--accent); border-radius: 2px; margin: 16px 0 24px; }
+  .big-quote { font-family: 'DM Sans', sans-serif; font-size: clamp(18px, 3vw, 26px); font-weight: 700; color: var(--accent); line-height: 1.4; padding: 24px 0; border-top: 2px solid var(--border); border-bottom: 2px solid var(--border); margin: 32px 0; }
+  footer { background: var(--ink); color: rgba(245,240,232,0.5); text-align: center; padding: 40px 24px; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-eyebrow">完全初學者的科技展覽入門指南</p>
+  <h1><span class="cx-word">Computex</span> <span>2026</span></h1>
+  <p class="hero-sub">一場讓全世界科技大廠齊聚台灣的年度盛會——但它到底在做什麼？誰在那裡？為什麼重要？</p>
+  <div class="hero-meta">
+    <span class="hero-meta-item">📅 2026年6月2–5日</span>
+    <span class="hero-meta-item">📍 台北南港展覽館</span>
+    <span class="hero-meta-item">🏷️ 主題：AI Together</span>
+  </div>
+</div>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#what">什麼是<span class="cx">Computex</span>？</a>
+    <a href="#overview">2026重點</a>
+    <a href="#speakers">演講者</a>
+    <a href="#vendors">參展廠商</a>
+    <a href="#basic">基礎知識</a>
+    <a href="#advanced">進階知識</a>
+    <a href="#expert">專業知識</a>
+  </div>
+</nav>
+
+<section id="what">
+  <div class="wrapper">
+    <p class="section-label">從零開始</p>
+    <h2><span class="cx">Computex</span> 是什麼？<br><span class="accent">為什麼重要？</span></h2>
+    <div class="sep"></div>
+    <p>你可以把 <span class="cx">Computex</span> 想像成<strong>科技界的大型發表會＋展覽會</strong>，就像汽車界有「車展」，時尚界有「時裝週」，科技界在台灣每年都有 <span class="cx">Computex</span>。</p>
+    <div class="callout orange">
+      <div class="callout-title">💡 一句話解釋</div>
+      <p><span class="cx">Computex</span> 就是全球最重要的電腦、AI、科技產品展覽，每年在台北舉辦，全球數百家科技公司來這裡發表新產品、宣布合作，讓全世界記者和買家看到科技業下一年要往哪走。</p>
+    </div>
+    <p>為什麼在台灣辦？因為台灣是全球電腦硬體的重要製造中心——你手機、電腦、伺服器裡的核心零件，很多都出自台灣公司之手。所以這裡辦展覽，全球廠商都必須出席。</p>
+    <p><span class="cx">Computex</span> 從 <strong>1981年</strong>舉辦至今，已超過 40 年，是全球最具影響力的科技展之一，每年吸引超過 4 萬名來自 150 個以上國家的業界人士參加。</p>
+    <div class="callout blue">
+      <div class="callout-title">📌 與一般展覽的差別</div>
+      <p><span class="cx">Computex</span> 不是賣給一般消費者的市集，而是企業對企業（B2B）的專業展覽。來的人主要是：採購商、媒體記者、投資人、工程師、公司主管。普通人雖然可以看現場直播，但實際入場需要業界身分。</p>
+    </div>
+  </div>
+</section>
+
+<section id="overview">
+  <div class="wrapper">
+    <p class="section-label">2026年整體概況</p>
+    <h2>今年的 <span class="cx">Computex</span><br><span class="accent">有多大？</span></h2>
+    <div class="sep"></div>
+    <div class="overview-grid">
+      <div class="overview-card"><div class="oc-num">1,500</div><div class="oc-label">來自全球的參展廠商</div></div>
+      <div class="overview-card"><div class="oc-num">6,000+</div><div class="oc-label">展覽攤位數量</div></div>
+      <div class="overview-card"><div class="oc-num">4天</div><div class="oc-label">展覽時間（6/2–5）</div></div>
+      <div class="overview-card"><div class="oc-num">80,000+</div><div class="oc-label">預計專業訪客人次</div></div>
+    </div>
+    <p class="big-quote">"AI Together"<br>今年的主題，代表AI不再只屬於某一家公司，而是整個產業要一起合作打造的未來。</p>
+    <p>今年最特別的是，NVIDIA（輝達）把自己的 <strong>GTC Taipei 大會直接整合進 <span class="cx">Computex</span></strong>——這等於全球最重要的 AI 晶片公司，把它最重要的年度發表會搬進 <span class="cx">Computex</span>，讓整個展覽的規格大幅提升。</p>
+    <h3 style="margin-top:32px; margin-bottom:16px;">三大核心主題</h3>
+    <div class="pillar-grid">
+      <div class="pillar-card"><div class="pillar-icon">🧠</div><h3>AI & Computing</h3><p>AI 晶片、高效能運算、伺服器、資料中心——讓 AI「動起來」的硬體基礎</p></div>
+      <div class="pillar-card"><div class="pillar-icon">🤖</div><h3>Robotics & Mobility</h3><p>機器人、自動駕駛、工廠自動化——AI 從螢幕走進真實世界</p></div>
+      <div class="pillar-card"><div class="pillar-icon">🔭</div><h3>Next-Gen Tech</h3><p>6G 通訊、量子計算、網路安全、永續發展——下一個世代的技術雛型</p></div>
+    </div>
+    <div class="callout green">
+      <div class="callout-title">🆕 今年新增的展區</div>
+      <p><strong>Robotics Zone</strong> 與 <strong>TechXperience Zone</strong>：在台北世貿中心 Hall 1 新設立，讓訪客親眼看到機器人在物流、醫療、零售場景中的實際運作示範。</p>
+    </div>
+  </div>
+</section>
+
+<section id="speakers">
+  <div class="wrapper">
+    <p class="section-label">重要人物</p>
+    <h2>今年的主題<span class="accent">演講者</span></h2>
+    <div class="sep"></div>
+    <p>「主題演講（Keynote）」就是科技展裡最重要的發表場合——通常是某家公司的 CEO（執行長）親自上台，向全世界宣布公司最新的方向和產品。這些演講往往會直接影響股市。</p>
+    <div class="keynote-list">
+      <div class="keynote-item">
+        <div class="keynote-date">6月1日</div>
+        <div class="keynote-info">
+          <div class="company">NVIDIA（輝達）</div>
+          <h4>Jensen Huang（黃仁勳）— 創辦人兼 CEO</h4>
+          <p>主題：AI 發展的「五層架構」模型，從能源到應用的完整 AI 生態系；宣布 RTX Spark、N1X ARM 筆電晶片等重磅產品</p>
+        </div>
+      </div>
+      <div class="keynote-item">
+        <div class="keynote-date">6月1日</div>
+        <div class="keynote-info">
+          <div class="company">Qualcomm（高通）</div>
+          <h4>Cristiano Amon — CEO（開幕主講）</h4>
+          <p>主題：讓 AI 在所有裝置上運作——從手機到工業機器人到資料中心；發表 Snapdragon C 系列平價 AI PC 晶片</p>
+        </div>
+      </div>
+      <div class="keynote-item">
+        <div class="keynote-date">6月2日</div>
+        <div class="keynote-info">
+          <div class="company">Marvell Technology（邁威爾）🆕 首次 Keynote</div>
+          <h4>Matt Murphy — 董事長兼 CEO</h4>
+          <p>主題：「AI 的未來取決於連結性」；黃仁勳將同台出席，共同展示 AI 基礎設施合作藍圖</p>
+        </div>
+      </div>
+      <div class="keynote-item">
+        <div class="keynote-date">6月2日</div>
+        <div class="keynote-info">
+          <div class="company">Intel（英特爾）</div>
+          <h4>Lip-Bu Tan（陳立武）— CEO</h4>
+          <p>主題：重奪 AI 時代的矽晶片主導地位，展示 Panther Lake 行動晶片與 Arc G3 系列</p>
+        </div>
+      </div>
+      <div class="keynote-item">
+        <div class="keynote-date">6月2日下午</div>
+        <div class="keynote-info">
+          <div class="company">NXP Semiconductors（恩智浦）🆕 首次 Keynote</div>
+          <h4>Rafael Sotomayor — CEO</h4>
+          <p>主題：Physical AI（物理 AI）——AI 如何嵌入汽車、工廠、工業設備中做出即時判斷</p>
+        </div>
+      </div>
+      <div class="keynote-item">
+        <div class="keynote-date cancelled">已取消</div>
+        <div class="keynote-info">
+          <div class="company">Cisco（思科）/ MediaTek（聯發科）</div>
+          <h4>原本排入演講，於 2026 年 4 月底取消</h4>
+          <p>Cisco 原為首次亮相 <span class="cx">Computex</span> Keynote；聯發科也原有演講排程，兩者皆已撤除</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vendors">
+  <div class="wrapper">
+    <p class="section-label">誰在那裡</p>
+    <h2>主要<span class="accent">參展廠商</span></h2>
+    <div class="sep"></div>
+    <div class="vendor-group">
+      <div class="vendor-group-title">🇹🇼 台灣品牌端——你最熟悉的名字</div>
+      <div class="vendor-grid">
+        <div class="vendor-card"><div class="vname">ASUS（華碩）</div><div class="vdesc">主機板、筆電、電競品牌 ROG、顯示器</div></div>
+        <div class="vendor-card"><div class="vname">GIGABYTE（技嘉）</div><div class="vdesc">主機板、顯示卡、筆電、AI 伺服器</div></div>
+        <div class="vendor-card"><div class="vname">MSI（微星）</div><div class="vdesc">主機板、顯示卡、電競筆電</div></div>
+        <div class="vendor-card"><div class="vname">ASRock（華擎）</div><div class="vdesc">主機板、Mini PC、工業電腦</div></div>
+        <div class="vendor-card"><div class="vname">Acer（宏碁）</div><div class="vdesc">筆電、桌機、顯示器、AI PC</div></div>
+        <div class="vendor-card"><div class="vname">BenQ（明基）</div><div class="vdesc">顯示器、投影機、電競周邊</div></div>
+      </div>
+    </div>
+    <div class="vendor-group">
+      <div class="vendor-group-title">🏭 台灣代工端——看不見但無處不在</div>
+      <div class="vendor-grid">
+        <div class="vendor-card"><div class="vname">Foxconn（鴻海）</div><div class="vdesc">全球最大電子代工廠，組裝 iPhone、AI 伺服器</div></div>
+        <div class="vendor-card"><div class="vname">Compal（仁寶）</div><div class="vdesc">筆電、平板電腦代工製造</div></div>
+        <div class="vendor-card"><div class="vname">Pegatron（和碩）</div><div class="vdesc">手機、筆電代工，Apple 主要供應商之一</div></div>
+        <div class="vendor-card"><div class="vname">Wiwynn（緯穎）</div><div class="vdesc">AI 雲端伺服器、資料中心系統整合</div></div>
+      </div>
+    </div>
+    <div class="vendor-group">
+      <div class="vendor-group-title">💻 國際晶片大廠——科技的「心臟」</div>
+      <div class="vendor-grid">
+        <div class="vendor-card"><div class="vname">NVIDIA（輝達）</div><div class="vdesc">GPU、AI 加速晶片，目前全球市值最高科技公司之一</div></div>
+        <div class="vendor-card"><div class="vname">Intel（英特爾）</div><div class="vdesc">電腦 CPU、資料中心晶片，x86 架構主導者</div></div>
+        <div class="vendor-card"><div class="vname">AMD（超微）</div><div class="vdesc">CPU（Ryzen）、GPU（Radeon）、AI 晶片</div></div>
+        <div class="vendor-card"><div class="vname">Qualcomm（高通）</div><div class="vdesc">手機晶片（Snapdragon）、ARM 架構 PC、5G</div></div>
+        <div class="vendor-card"><div class="vname">MediaTek（聯發科）</div><div class="vdesc">手機 SoC、Wi-Fi 晶片、AIoT 解決方案</div></div>
+        <div class="vendor-card"><div class="vname">Samsung（三星）</div><div class="vdesc">記憶體（DRAM/NAND）、SSD、顯示器</div></div>
+        <div class="vendor-card new-vendor"><div class="vname">Marvell（邁威爾）</div><div class="vdesc">資料中心網路晶片、AI 連結基礎設施</div></div>
+        <div class="vendor-card new-vendor"><div class="vname">NXP（恩智浦）</div><div class="vdesc">汽車晶片、工業 MCU、IoT 安全晶片</div></div>
+      </div>
+    </div>
+    <div class="vendor-group">
+      <div class="vendor-group-title">🆕 今年首次大規模現身的廠商</div>
+      <div class="vendor-grid">
+        <div class="vendor-card new-vendor"><div class="vname">Microsoft（微軟）</div><div class="vdesc">作業系統、Azure 雲端、Copilot AI 整合</div></div>
+        <div class="vendor-card new-vendor"><div class="vname">Google（谷歌）</div><div class="vdesc">GCP 雲端、TPU AI 晶片、邊緣 AI</div></div>
+        <div class="vendor-card new-vendor"><div class="vname">Siemens（西門子）</div><div class="vdesc">工業自動化、PLM 軟體、智慧製造</div></div>
+        <div class="vendor-card new-vendor"><div class="vname">Schneider Electric（施耐德電氣）</div><div class="vdesc">資料中心電源管理、能源基礎設施</div></div>
+        <div class="vendor-card new-vendor"><div class="vname">Infineon（英飛凌）</div><div class="vdesc">汽車半導體、電源晶片、安全 MCU</div></div>
+        <div class="vendor-card new-vendor"><div class="vname">Synopsys（新思）/ Cadence（益華）</div><div class="vdesc">EDA 晶片設計軟體，AI 晶片設計工具</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARD STYLES injected here -->
+<style>
+.kc-section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+.kc-section:last-of-type { border-bottom: none; }
+.level-tab-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.level-tab { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 7px 18px; border-radius: 100px; border: 1.5px solid transparent; cursor: pointer; transition: all 0.18s; background: white; }
+.level-tab.easy  { border-color: #2d6a4a; color: #2d6a4a; }
+.level-tab.mid   { border-color: #2a5c8a; color: #2a5c8a; }
+.level-tab.hard  { border-color: #c84b1f; color: #c84b1f; }
+.level-tab.expert{ border-color: #5a3a8a; color: #5a3a8a; }
+.level-tab.easy.active  { background: #2d6a4a; color: white; }
+.level-tab.mid.active   { background: #2a5c8a; color: white; }
+.level-tab.hard.active  { background: #c84b1f; color: white; }
+.level-tab.expert.active{ background: #5a3a8a; color: white; }
+.card-group { display: none; }
+.card-group.visible { display: block; }
+.kc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.kc-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 20px 16px;
+  cursor: pointer;
+  transition: box-shadow 0.18s, border-color 0.18s;
+  position: relative;
+}
+.kc-card:hover { border-color: rgba(26,20,16,0.25); box-shadow: 0 4px 16px rgba(26,20,16,0.07); }
+.kc-card.open { border-color: rgba(26,20,16,0.2); }
+.kc-card-top { display: flex; align-items: flex-start; gap: 12px; }
+.kc-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.icon-easy   { background: #e8f5ee; }
+.icon-mid    { background: #e8f0f8; }
+.icon-hard   { background: #fdf0e8; }
+.icon-expert { background: #f0ebf8; }
+.kc-card-header { flex: 1; min-width: 0; }
+.kc-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 100px; margin-bottom: 6px; }
+.badge-easy   { background: #e8f5ee; color: #2d6a4a; }
+.badge-mid    { background: #e8f0f8; color: #2a5c8a; }
+.badge-hard   { background: #fdf0e8; color: #c84b1f; }
+.badge-expert { background: #f0ebf8; color: #5a3a8a; }
+.kc-title { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 4px; }
+.kc-subtitle { font-size: 12px; color: var(--ink3); font-style: italic; }
+.kc-preview { font-size: 13px; color: var(--ink2); margin-top: 10px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.kc-toggle { display: flex; align-items: center; gap: 5px; margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--ink3); border-top: 1px solid var(--border); padding-top: 12px; }
+.kc-toggle-arrow { font-size: 10px; transition: transform 0.2s; }
+.kc-card.open .kc-toggle-arrow { transform: rotate(180deg); }
+.kc-body { display: none; margin-top: 14px; border-top: 1px solid var(--border); padding-top: 14px; }
+.kc-card.open .kc-body { display: block; }
+.kc-body p { font-size: 14px; color: var(--ink2); line-height: 1.75; margin: 0 0 10px; }
+.kc-body p:last-child { margin: 0; }
+.kc-analogy { background: #e8f5ee; border-radius: 10px; padding: 12px 14px; margin-top: 12px; font-size: 13px; color: #2d4a3a; line-height: 1.6; }
+.kc-analogy::before { content: '💡 生活類比　'; font-weight: 700; }
+.kc-analogy-blue { background: #e8f0f8; color: #1a3a5a; }
+.kc-analogy-blue::before { content: '🔍 實例　'; font-weight: 700; }
+.kc-analogy-orange { background: #fdf0e8; color: #5a2a10; }
+.kc-analogy-orange::before { content: '⚡ 為什麼重要　'; font-weight: 700; }
+.kc-analogy-purple { background: #f0ebf8; color: #3a2060; }
+.kc-analogy-purple::before { content: '🎓 職涯連結　'; font-weight: 700; }
+.kc-count { font-size: 12px; color: var(--ink3); margin-bottom: 16px; }
+</style>
+
+<section id="basic" class="kc-section">
+  <div class="wrapper">
+    <p class="section-label">背景知識補充</p>
+    <h2>看懂 <span class="cx">Computex</span><br><span class="accent">需要知道的基礎</span></h2>
+    <div class="sep"></div>
+    <p>點擊層級切換，再點卡片展開詳細說明。</p>
+
+    <div class="level-tab-row">
+      <button class="level-tab easy active" onclick="switchLevel('basic','easy',this)">🟢 簡單　零基礎必看</button>
+      <button class="level-tab mid" onclick="switchLevel('basic','mid',this)">🔵 中等　看懂新聞</button>
+      <button class="level-tab hard" onclick="switchLevel('basic','hard',this)">🟠 稍難　跟上業界</button>
+    </div>
+
+    <!-- 簡單 -->
+    <div class="card-group visible" id="basic-easy">
+      <p class="kc-count">4 個概念</p>
+      <div class="kc-grid">
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-easy">🔬</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-easy">簡單</span>
+              <div class="kc-title">什麼是晶片（Chip / IC）？</div>
+              <div class="kc-subtitle">Integrated Circuit</div>
+            </div>
+          </div>
+          <div class="kc-preview">電腦的「大腦」——一塊指甲大小的矽片，刻著數十億個微小電路。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>晶片就是電腦的「大腦」——一塊指甲大小的矽片上，刻著數十億個微小電路。你的手機、電腦、甚至冰箱裡都有晶片。台積電（TSMC）就是全球最重要的晶片製造商，設在台灣。</p>
+            <div class="kc-analogy">就像樂高積木有很多不同功能的零件，晶片就是把無數微小的「電子開關」（電晶體）拼在一起，讓電流能按照指令流動，完成計算工作。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-easy">⚡</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-easy">簡單</span>
+              <div class="kc-title">CPU vs GPU 的差別？</div>
+              <div class="kc-subtitle">中央處理器 vs 圖形處理器</div>
+            </div>
+          </div>
+          <div class="kc-preview">CPU 像超級聰明的一個人；GPU 像幾千個普通工人同時幹活。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>CPU（中央處理器）像一個非常聰明的人，能處理複雜的各種任務。GPU（圖形處理器）像一大群普通工人，能同時處理大量簡單的平行運算。</p>
+            <p>AI 訓練特別需要 GPU，這就是為什麼 NVIDIA（輝達）這幾年大爆發——它做的 GPU 剛好是訓練 AI 最需要的工具。</p>
+            <div class="kc-analogy">CPU 像廚師長，一次處理複雜料理；GPU 像一群打雜工，一次切一千顆洋蔥。AI 需要的是「大量重複計算」，所以適合 GPU。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-easy">🤖</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-easy">簡單</span>
+              <div class="kc-title">什麼是 AI？為什麼全場都在談？</div>
+              <div class="kc-subtitle">Artificial Intelligence</div>
+            </div>
+          </div>
+          <div class="kc-preview">讓電腦學會「判斷」——ChatGPT 回答問題、手機辨識臉孔，都是 AI。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>AI（人工智慧）就是讓電腦學會「判斷」——例如 ChatGPT 能回答問題、手機能辨識你的臉。這些都需要大量的晶片和運算能力，所以整個科技產業都在拼命研發更快的 AI 硬體。</p>
+            <div class="kc-analogy">以前的電腦是「你怎麼寫，它就怎麼做」；AI 的突破是讓電腦能「從大量例子中自己學習規律」，就像小孩看多了貓的照片，自然學會辨認貓一樣。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-easy">🤝</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-easy">簡單</span>
+              <div class="kc-title">什麼是 B2B？</div>
+              <div class="kc-subtitle">Business to Business 企業對企業</div>
+            </div>
+          </div>
+          <div class="kc-preview">Computex 不是賣給你我的市集，而是企業之間做生意的專業展覽。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p><span class="cx">Computex</span> 不是賣東西給你我的市場，而是「A 公司的零件賣給 B 公司，B 公司做成產品再賣給消費者」這種商業模式的展覽舞台。</p>
+            <div class="kc-analogy">就像批發市場和零售超市的差別——批發市場是商家之間大量交易的地方，不是給一般人買菜的地方。<span class="cx">Computex</span> 就是科技業的「批發市場」。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 中等 -->
+    <div class="card-group" id="basic-mid">
+      <p class="kc-count">4 個概念</p>
+      <div class="kc-grid">
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-mid">🔗</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-mid">中等</span>
+              <div class="kc-title">什麼是供應鏈？</div>
+              <div class="kc-subtitle">Supply Chain</div>
+            </div>
+          </div>
+          <div class="kc-preview">一支 iPhone 從設計到你手上，要經過設計→製造→組裝→品牌→消費者。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>一支 iPhone 從設計到你手上，要經過：高通（晶片設計）→ 台積電（晶片製造）→ 和碩/鴻海（組裝）→ Apple（品牌包裝）→ 你。<span class="cx">Computex</span> 就是這條鏈上的各個環節，在同一個地方碰面的場合。</p>
+            <div class="kc-analogy">就像蓋房子要有建材商、工班、室內設計師、建商，科技產品也有一整條「從沙子到手機」的生產鏈，<span class="cx">Computex</span> 是讓這條鏈的所有人聚在一起談合作的地方。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-mid">⚙️</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-mid">中等</span>
+              <div class="kc-title">ARM vs x86 架構是什麼？</div>
+              <div class="kc-subtitle">晶片的「語言規範」</div>
+            </div>
+          </div>
+          <div class="kc-preview">晶片的底層指令集標準——決定了晶片的省電程度和軟體相容性。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>這是晶片的「指令集」——電腦語言的底層規範。Intel/AMD 用 x86，效能強但耗電；ARM 省電但過去效能略遜。蘋果 M 系列晶片和高通 Snapdragon 都是 ARM。</p>
+            <p>今年 NVIDIA 也推出了 ARM 架構的筆電晶片（N1X），這是今年 <span class="cx">Computex</span> 的重大新聞之一！</p>
+            <div class="kc-analogy-blue kc-analogy">就像英文和中文都能表達「我要喝水」，但用詞邏輯不同。x86 和 ARM 是兩種「電腦語言規範」，寫給一種的程式不能直接在另一種上跑。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-mid">🏢</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-mid">中等</span>
+              <div class="kc-title">什麼是資料中心？</div>
+              <div class="kc-subtitle">Data Center</div>
+            </div>
+          </div>
+          <div class="kc-preview">裝滿伺服器的大型機房——你的 iCloud 照片、LINE 訊息都住在那裡。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>就是裝滿伺服器的大型機房。你上傳的照片存在 iCloud、LINE 傳的訊息——這些都放在資料中心裡。</p>
+            <p>現在因為 AI 需要大量運算，資料中心正在大規模擴建，所以連電力公司（施耐德電氣）都來 <span class="cx">Computex</span> 了——AI 資料中心的電費是天文數字。</p>
+            <div class="kc-analogy">就像你把照片「存在雲端」，其實是存在某個城市裡一棟很大的建築物裡，那棟建築裡全是一排排不停運轉的電腦。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-mid">💎</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-mid">中等</span>
+              <div class="kc-title">什麼是 SoC（系統晶片）？</div>
+              <div class="kc-subtitle">System on Chip</div>
+            </div>
+          </div>
+          <div class="kc-preview">把 CPU、GPU、記憶體等全塞進一顆晶片——手機晶片幾乎都是這樣。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>把 CPU、GPU、記憶體控制器、通訊模組全部整合在一顆晶片上，稱為 SoC（System on Chip）。手機晶片幾乎都是 SoC 設計，省空間又省電。</p>
+            <div class="kc-analogy">就像以前音響要分擴大機、收音機、CD 播放器各自一台；現在智慧音箱把所有功能整合進一個小盒子。SoC 就是把電腦需要的全部功能「整合進一顆豆子」。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 稍難 -->
+    <div class="card-group" id="basic-hard">
+      <p class="kc-count">4 個概念</p>
+      <div class="kc-grid">
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-hard">🤖</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-hard">稍難</span>
+              <div class="kc-title">什麼是 Physical AI（物理 AI）？</div>
+              <div class="kc-subtitle">AI 走進真實世界</div>
+            </div>
+          </div>
+          <div class="kc-preview">AI 不只在螢幕裡——工廠機械臂、自動駕駛車、倉儲機器人都是 Physical AI。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>過去的 AI 活在螢幕裡（聊天機器人、圖像生成）。Physical AI 是讓 AI 控制真實世界的機器——工廠機械臂、自動駕駛車、倉儲機器人。</p>
+            <p>NXP（恩智浦）今年 Keynote 就是在談這個，因為它們的晶片特別適合這類需要「即時反應、不能斷線」的場景。</p>
+            <div class="kc-analogy-orange kc-analogy">自動駕駛車要在 0.01 秒內判斷要不要煞車——它不能把影像傳到遠端 AI 再等回應，必須靠車上的晶片即時處理，這就是 Physical AI 最核心的挑戰。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-hard">📡</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-hard">稍難</span>
+              <div class="kc-title">什麼是 Edge AI（邊緣 AI）？</div>
+              <div class="kc-subtitle">讓裝置本身就能跑 AI</div>
+            </div>
+          </div>
+          <div class="kc-preview">不用送資料到雲端——讓手機、相機、工廠設備直接在本地做 AI 運算。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>傳統 AI 要把資料送到遠端伺服器運算再回傳。Edge AI 是讓裝置本身就能做 AI 運算（比如手機的 Face ID 不需要連網）。</p>
+            <p>更快速、更省流量、更保護隱私，是現在很熱的方向，也是聯發科（MediaTek）的主要戰場。</p>
+            <div class="kc-analogy">手機拍照自動美化臉部，這個 AI 不是在遠端伺服器跑，而是手機晶片自己處理的——這就是 Edge AI，「邊緣」指的是「網路的末端、靠近使用者的地方」。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-hard">🏭</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-hard">稍難</span>
+              <div class="kc-title">AI 工廠（AI Factory）是什麼？</div>
+              <div class="kc-subtitle">黃仁勳今年提出的核心概念</div>
+            </div>
+          </div>
+          <div class="kc-preview">把 AI 基礎設施比喻成工廠：電力是原料、運算是生產線、AI 模型是產出。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>NVIDIA 黃仁勳在今年 Keynote 提出的概念——把建置 AI 系統比喻成「工廠」：電力是原料，運算是生產線，AI 模型是產出。</p>
+            <p>他主張整個國家都應該把 AI 基礎設施視為戰略資產來投資，就像以前國家要建電廠、港口一樣。</p>
+            <div class="kc-analogy-orange kc-analogy">以前工業革命靠的是「建工廠產出實體商品」，黃仁勳認為 AI 時代靠的是「建 AI 工廠產出智慧」。誰的 AI 工廠算力最強，誰就佔競爭優勢。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-hard">🇹🇼</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-hard">稍難</span>
+              <div class="kc-title">為什麼台積電這麼重要？</div>
+              <div class="kc-subtitle">TSMC 的無可取代性</div>
+            </div>
+          </div>
+          <div class="kc-preview">全球最先進的晶片幾乎全在台積電製造——NVIDIA、Apple、AMD 都是它的客戶。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>全球最先進的晶片（NVIDIA、Apple、AMD、高通的高端晶片），全部都在台積電製造。這讓台灣在全球科技供應鏈中具有無可替代的地位。</p>
+            <p>這也是為什麼黃仁勳、Lisa Su、Intel CEO 全部在 <span class="cx">Computex</span> 前後密集拜訪台積電——搶產能就是搶市場。</p>
+            <div class="kc-analogy-orange kc-analogy">台積電就像全球唯一能打印最精緻貨幣的印鈔機。你可以設計很漂亮的鈔票圖案（晶片設計），但最後都要送到這裡才能印出來。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="advanced" class="kc-section">
+  <div class="wrapper">
+    <p class="section-label">進階理解</p>
+    <h2>想看更深？<br><span class="accent">進階必懂知識</span></h2>
+    <div class="sep"></div>
+
+    <div class="level-tab-row">
+      <button class="level-tab easy active" onclick="switchLevel('adv','easy',this)">🟢 進階入門　產業動向</button>
+      <button class="level-tab mid" onclick="switchLevel('adv','mid',this)">🔵 進階中等　技術邏輯</button>
+      <button class="level-tab hard" onclick="switchLevel('adv','hard',this)">🟠 進階較難　地緣政治</button>
+    </div>
+
+    <!-- 進階入門 -->
+    <div class="card-group visible" id="adv-easy">
+      <p class="kc-count">4 個概念</p>
+      <div class="kc-grid">
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-easy">📉</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-easy">進階入門</span>
+              <div class="kc-title">為什麼 Intel 這幾年被追上？</div>
+              <div class="kc-subtitle">製程技術落後的代價</div>
+            </div>
+          </div>
+          <div class="kc-preview">長期壟斷 CPU 市場，但製程落後台積電後，AMD、蘋果、NVIDIA 趁機搶占。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>Intel（英特爾）長期壟斷 x86 CPU 市場，但製程技術（刻越細等於越快越省電）落後台積電後，AMD、NVIDIA、蘋果趁機搶占市場。</p>
+            <p>Lip-Bu Tan（陳立武）這次來 <span class="cx">Computex</span> 就是要「秀出回歸戰場的決心」，展示 18A 製程的進展。</p>
+            <div class="kc-analogy-blue kc-analogy">就像諾基亞太晚轉型智慧型手機而被蘋果打敗。Intel 太晚意識到製程節點落後的嚴重性，讓競爭對手趁機切入。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-easy">📱</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-easy">進階入門</span>
+              <div class="kc-title">Qualcomm 為什麼能挑戰 Intel？</div>
+              <div class="kc-subtitle">ARM 電腦時代來臨</div>
+            </div>
+          </div>
+          <div class="kc-preview">Snapdragon X Elite 效能逼近 Intel Core，且更省電——ARM 電腦的時代正式開始。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>高通（Qualcomm）的 Snapdragon X Elite 在 ARM 架構下效能逼近 Intel Core，且更省電。Microsoft（微軟）積極配合推出 ARM 版 Windows，讓「ARM 電腦」終於有完整軟體支援。</p>
+            <p>這是 <span class="cx">Computex</span> 2024–2026 連續三年的大趨勢，今年更有 NVIDIA 加入戰局推出 N1X。</p>
+            <div class="kc-analogy-blue kc-analogy">以前「ARM 處理器」只用在手機，現在蘋果 M 系列和高通 Snapdragon 都證明 ARM 能做出比 Intel x86 更省電、甚至效能相當的電腦晶片。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-easy">🏰</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-easy">進階入門</span>
+              <div class="kc-title">NVIDIA 的護城河在哪裡？</div>
+              <div class="kc-subtitle">不只是晶片快，是軟體生態</div>
+            </div>
+          </div>
+          <div class="kc-preview">CUDA 軟體生態系讓所有 AI 工程師都綁在 NVIDIA 的平台上，難以取代。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>NVIDIA 的護城河不只是晶片快，而是 CUDA 軟體生態系——這是 NVIDIA GPU 的程式設計平台，現在幾乎所有 AI 工程師都用 CUDA 寫程式。</p>
+            <p>其他公司的 GPU 就算硬體效能接近，也因為缺乏同等的軟體生態而很難取代。</p>
+            <div class="kc-analogy-blue kc-analogy">就像 iPhone 的護城河不只是硬體好，而是 App Store 有幾百萬個 App。換手機不難，但你習慣用的 App 全在 iPhone 上——CUDA 對 AI 工程師也是這種黏著度。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-easy">🛠️</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-easy">進階入門</span>
+              <div class="kc-title">什麼是 EDA 軟體？</div>
+              <div class="kc-subtitle">晶片設計不可缺的工具</div>
+            </div>
+          </div>
+          <div class="kc-preview">設計晶片需要的超複雜電腦輔助工具，由 Synopsys 和 Cadence 壟斷市場。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>晶片設計需要極其複雜的電腦輔助工具，叫做 EDA（Electronic Design Automation）。沒有 Synopsys（新思）和 Cadence（益華）的軟體，台積電的客戶們根本設計不出先進晶片。</p>
+            <p>這兩家公司控制全球絕大多數 EDA 市場，是晶片設計幕後最關鍵的基礎設施。</p>
+            <div class="kc-analogy-blue kc-analogy">就像蓋房子要有 AutoCAD，設計晶片要有 EDA 軟體。你看不到它，但它是整個半導體產業的「設計作業系統」。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 進階中等 -->
+    <div class="card-group" id="adv-mid">
+      <p class="kc-count">4 個概念</p>
+      <div class="kc-grid">
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-mid">🧩</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-mid">進階中等</span>
+              <div class="kc-title">什麼是異質整合？</div>
+              <div class="kc-subtitle">Heterogeneous Integration / Chiplet</div>
+            </div>
+          </div>
+          <div class="kc-preview">把不同功能的小晶片（Chiplet）分開製造再封裝在一起，效能更好、成本更低。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>以前一顆晶片只用一種製程製造。現在 Intel、AMD、NVIDIA 都把不同功能的晶片（稱為 Chiplet）分開製造後再封裝在一起，提升效能同時降低成本。</p>
+            <p>Intel 的 Foveros 和 EMIB 技術就是這個方向。AMD 的 Ryzen 3D V-Cache 也是類似概念。</p>
+            <div class="kc-analogy-blue kc-analogy">就像組裝電腦——不同零件分開製造再組在一起，比一體成型更彈性。Chiplet 讓晶片設計也有了「積木化」的可能。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-mid">⚡</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-mid">進階中等</span>
+              <div class="kc-title">AI 伺服器為什麼這麼耗電？</div>
+              <div class="kc-subtitle">能源危機與 AI 基礎設施</div>
+            </div>
+          </div>
+          <div class="kc-preview">訓練一個大型 AI 模型，耗電量相當於數百戶家庭一整年——這是 Computex 今年的隱藏主題。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>訓練一個大型 AI 模型（如 GPT-4）耗電量相當於數百戶家庭一年用電。現在全球 AI 資料中心的電力需求正在暴增。</p>
+            <p>這就是為什麼 Schneider Electric（施耐德電氣）這種能源管理公司今年也出現在 <span class="cx">Computex</span>——AI 讓電力基礎設施成了科技展的新主角。</p>
+            <div class="kc-analogy-orange kc-analogy">ChatGPT 每回答一個問題，用電量大約是 Google 搜尋的 10 倍。全球每天有幾億人用 AI，加總起來電力需求就像多了一個國家的用電量。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-mid">🎯</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-mid">進階中等</span>
+              <div class="kc-title">什麼是 Custom Silicon？</div>
+              <div class="kc-subtitle">科技巨頭自己設計晶片</div>
+            </div>
+          </div>
+          <div class="kc-preview">Google、Apple、Amazon 都自己設計專用晶片——Marvell 就是幫他們做這件事的。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>以前大家買通用晶片（Intel/AMD CPU）。現在 Google、Amazon、Meta、Apple 都自己設計專用晶片，針對自己的工作負載優化。</p>
+            <p>Marvell（邁威爾）就是幫這些科技巨頭設計客製化 AI 晶片的重要夥伴，這也是今年它首次登上 Keynote 的原因。</p>
+            <div class="kc-analogy-blue kc-analogy">就像頂級運動員不用現成球鞋，而是找廠商客製化打造——科技巨頭到了一定規模，也會發現「客製晶片」比買現成的更省錢、更快。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-mid">🔌</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-mid">進階中等</span>
+              <div class="kc-title">什麼是 NVLink？N1X 為何特別？</div>
+              <div class="kc-subtitle">晶片間高速連接技術</div>
+            </div>
+          </div>
+          <div class="kc-preview">NVLink 讓筆電晶片首次能以 300 GB/s 連結 CPU 和 GPU，跑與資料中心相同的程式。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>NVLink 是 NVIDIA 開發的晶片間高速連接技術。今年 N1X 筆電晶片用 NVLink 把 ARM CPU 和 GPU 以 300 GB/s 連結在一起。</p>
+            <p>這讓筆電首次能跑與資料中心相同的 CUDA 程式碼，是 AI PC 的重大突破——NVIDIA 正式進軍筆電市場。</p>
+            <div class="kc-analogy-orange kc-analogy">傳統筆電的 CPU 和 GPU 之間傳資料像走鄉間小路；NVLink 把它升級成高速公路。這讓筆電上的 AI 運算速度可以大幅提升。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 進階較難 -->
+    <div class="card-group" id="adv-hard">
+      <p class="kc-count">3 個概念</p>
+      <div class="kc-grid">
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-hard">⚔️</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-hard">進階較難</span>
+              <div class="kc-title">美中科技戰如何影響 Computex？</div>
+              <div class="kc-subtitle">地緣政治 × 半導體供應鏈</div>
+            </div>
+          </div>
+          <div class="kc-preview">美國限制對中國出口先進晶片，讓台灣在 AI 供應鏈中的地位急速竄升。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>美國對中國限制先進晶片出口（尤其 NVIDIA 的 H100/H200），加速了台灣在 AI 供應鏈的戰略地位。</p>
+            <p>三大 CEO（黃仁勳、Lisa Su、陳立武）密集訪台，背後是搶在未來 3–5 年確保台積電產能——誰先鎖定產能，誰就能在 AI 競賽中勝出。</p>
+            <div class="kc-analogy-orange kc-analogy">就像石油禁運會讓某些國家無法開車，先進晶片出口管制讓中國的 AI 公司很難取得最好的算力。這讓台積電和台灣廠商變得更重要，也更危險。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-hard">🏛️</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-hard">進階較難</span>
+              <div class="kc-title">CHIPS Act 怎麼影響這次展會？</div>
+              <div class="kc-subtitle">美國晶片法案的產業衝擊</div>
+            </div>
+          </div>
+          <div class="kc-preview">美國補貼晶片製造回流，引發全球供應鏈重組——今年 Computex 的「生態系合作」正是回應。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>美國 CHIPS 法案補貼晶片製造回流，Intel 在美國蓋新廠，台積電在亞利桑那設廠。</p>
+            <p>今年 <span class="cx">Computex</span> 上，「生態系合作」成為每一場 Keynote 的關鍵詞，反映出產業在地緣政治壓力下的戰略重組——各家公司都在重新思考「不能只依賴單一地區」。</p>
+            <div class="kc-analogy-orange kc-analogy">就像 COVID 後大家才發現口罩都從同一個地方進口，科技業現在也在分散風險——把晶片製造分散到美國、日本、歐洲，不再把雞蛋都放在台灣這個籃子裡。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-hard">📊</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-hard">進階較難</span>
+              <div class="kc-title">為何 AI 出口將佔台灣出口 70%？</div>
+              <div class="kc-subtitle">台灣在 AI 時代的經濟地位</div>
+            </div>
+          </div>
+          <div class="kc-preview">AI 伺服器、HBM 記憶體、網通設備的需求爆炸，讓台灣廠商成為全球 AI 建設的核心供應商。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>主辦方 TAITRA 表示，AI 相關產業預計在未來六個月貢獻台灣出口約 70%。</p>
+            <p>這背後是 AI 伺服器（鴻海、廣達、緯穎）、網通設備、HBM 記憶體等台灣製造的硬體，在全球 AI 基礎設施建設潮中的需求爆炸。每一個 ChatGPT、每一個 AI 服務，背後都需要大量的伺服器——很多都是台灣組裝的。</p>
+            <div class="kc-analogy-orange kc-analogy">全球 AI 熱潮就像 19 世紀的淘金熱，台灣不是在挖金子，而是在賣「鏟子和牛仔褲」（伺服器、零組件）給所有淘金客——這是更穩定、規模更大的生意。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="expert" class="kc-section">
+  <div class="wrapper">
+    <p class="section-label">給資工系學生</p>
+    <h2>想走<span class="accent">相關領域</span><br>你還需要知道這些</h2>
+    <div class="sep"></div>
+    <p>適合資訊管理、資工、電機科系，未來想往 AI 晶片、系統設計、或科技產業發展的人。</p>
+
+    <div class="level-tab-row">
+      <button class="level-tab expert active" onclick="switchLevel('exp','hw',this)">🔬 硬體架構層</button>
+      <button class="level-tab expert" onclick="switchLevel('exp','ai',this)">🧠 AI 系統層</button>
+      <button class="level-tab expert" onclick="switchLevel('exp','career',this)">🌐 產業與職涯</button>
+    </div>
+
+    <!-- 硬體架構 -->
+    <div class="card-group visible" id="exp-hw">
+      <p class="kc-count">3 個概念</p>
+      <div class="kc-grid">
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-expert">🔬</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-expert">專業</span>
+              <div class="kc-title">製程節點（nm）的真正意義</div>
+              <div class="kc-subtitle">3nm、2nm 代表什麼？</div>
+            </div>
+          </div>
+          <div class="kc-preview">不是真正的物理尺寸，而是代表電晶體密度的行銷術語——越小密度越高，效能越好。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>3nm、2nm 不是直接的物理尺寸，而是代表電晶體密度的術語。台積電 N3（3nm）和 N2（2nm）製程每平方毫米可塞入更多電晶體，提升效能並降低功耗。</p>
+            <p>Intel 的 18A 製程引入了 RibbonFET（環繞閘極電晶體）和 PowerVia（背面供電）兩項重大突破：RibbonFET 提升電流控制能力，PowerVia 把電源線移到晶片背面，讓訊號線有更多空間。</p>
+            <div class="kc-analogy-purple kc-analogy">修半導體學程或相關課程時，理解製程節點差異對於評估不同代晶片的效能/功耗取捨非常關鍵，也是面試半導體公司時的基礎問題。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-expert">💾</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-expert">專業</span>
+              <div class="kc-title">記憶體瓶頸與 HBM</div>
+              <div class="kc-subtitle">High Bandwidth Memory</div>
+            </div>
+          </div>
+          <div class="kc-preview">把記憶體疊在 GPU 旁邊用矽中介層連接，大幅提升頻寬——AI 訓練速度的關鍵。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>高頻寬記憶體（HBM）把記憶體疊在 GPU 旁邊，透過矽中介層（Interposer）連接，大幅減少資料搬移延遲。NVIDIA H100/H200 使用 HBM3，這是 AI 訓練速度的關鍵因素之一。</p>
+            <p>HBM 主要由三星（Samsung）和 SK Hynix 生產，目前供不應求，是 AI 算力競賽的隱性瓶頸。</p>
+            <div class="kc-analogy-purple kc-analogy">計算機組織課程中的「記憶體牆（Memory Wall）」問題——計算速度比記憶體存取快太多，HBM 就是目前最直接解決這個瓶頸的硬體方案。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-expert">🔗</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-expert">專業</span>
+              <div class="kc-title">NVLink vs PCIe vs CXL</div>
+              <div class="kc-subtitle">互連技術標準之戰</div>
+            </div>
+          </div>
+          <div class="kc-preview">多顆晶片如何快速傳資料？三種互連技術各有生態——誰勝出決定未來 AI 硬體格局。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>多顆 GPU 或 CPU 之間如何快速傳資料是效能關鍵。NVLink 是 NVIDIA 私有協議（最快，但只能 NVIDIA 用）；PCIe 是業界標準（開放，但較慢）；CXL（Compute Express Link）是新興的記憶體/儲存共享介面。</p>
+            <p>Marvell（邁威爾）和 Intel 都在積極布局 CXL，因為它允許 CPU、GPU、記憶體在不同廠商之間共享資源，是打破 NVIDIA 壟斷的潛在技術路徑。</p>
+            <div class="kc-analogy-purple kc-analogy">系統程式設計或計算機架構課程的延伸——這些互連協議決定了大型 AI 叢集的系統設計方式，是分散式 AI 訓練基礎設施的核心知識。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI 系統層 -->
+    <div class="card-group" id="exp-ai">
+      <p class="kc-count">3 個概念</p>
+      <div class="kc-grid">
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-expert">⚔️</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-expert">專業</span>
+              <div class="kc-title">CUDA vs ROCm vs oneAPI</div>
+              <div class="kc-subtitle">AI 開發平台生態系之戰</div>
+            </div>
+          </div>
+          <div class="kc-preview">CUDA 是事實標準，ROCm 是開源替代，oneAPI 是 Intel 的嘗試——學 CUDA 幾乎是必修課。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>NVIDIA 的 CUDA 是 AI 開發的事實標準，幾乎所有主流 AI 框架（PyTorch、TensorFlow）都以 CUDA 為第一優先。AMD 的 ROCm 是開源替代方案，Intel 的 oneAPI 也在努力，但開發者慣性讓 NVIDIA 的護城河短期難以撼動。</p>
+            <p>今年 NVIDIA 的 N1X 筆電晶片把 CUDA 帶進消費端，代表 AI 開發環境的版圖在持續擴張。</p>
+            <div class="kc-analogy-purple kc-analogy">如果你之後要做 AI 相關研究或開發，學 CUDA 程式設計是很值得的投資——不只是寫 kernel，理解記憶體存取模式和平行化策略對效能優化至關重要。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-expert">⚡</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-expert">專業</span>
+              <div class="kc-title">Training vs Inference 市場差異</div>
+              <div class="kc-subtitle">訓練 vs 推論的硬體需求完全不同</div>
+            </div>
+          </div>
+          <div class="kc-preview">訓練要超大叢集，推論量更大——Qualcomm、NXP、聯發科都在搶這個市場。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>訓練 AI 模型需要超大 GPU 叢集（幾千顆 H100），但推論（讓已訓練的模型回答問題）用量遠大於訓練，且分布在各種終端裝置上。</p>
+            <p>Qualcomm 的 Snapdragon、NXP 的邊緣晶片、聯發科的 APU 都在搶推論市場——這將是未來幾年的主戰場，也是台灣廠商最有機會切入的領域。</p>
+            <div class="kc-analogy-purple kc-analogy">從機器學習系統設計的角度看：訓練是離線批次作業（吞吐量優先），推論是線上即時服務（延遲優先）——兩者對硬體的要求幾乎相反，這也是為什麼推論晶片是獨立的市場。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-expert">🤖</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-expert">專業</span>
+              <div class="kc-title">什麼是 Agentic AI？</div>
+              <div class="kc-subtitle">今年 GTC 與 Computex 的核心主題</div>
+            </div>
+          </div>
+          <div class="kc-preview">不只回答問題——AI 能自主規劃任務、呼叫工具、執行多步驟工作流程。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>Agentic AI 不只是「問問題得到回答」，而是 AI 能自主規劃任務、呼叫工具、執行多步驟工作流程，甚至控制電腦操作其他應用程式。</p>
+            <p>這需要更低延遲的推論硬體與更精密的系統設計，是下一波 AI 硬體需求的核心驅動力。從軟體工程角度，Agentic AI 也帶來新的安全性、可靠性挑戰。</p>
+            <div class="kc-analogy-purple kc-analogy">分散式系統課程的延伸——Agentic AI 系統本質上是多個 AI 模型與工具之間的協調問題，涉及任務排程、錯誤恢復、狀態管理，跟你學的系統設計概念高度相關。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 產業職涯 -->
+    <div class="card-group" id="exp-career">
+      <p class="kc-count">4 個概念</p>
+      <div class="kc-grid">
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-expert">💼</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-expert">專業</span>
+              <div class="kc-title">EDA 工程師的需求爆炸</div>
+              <div class="kc-subtitle">Verilog / RTL / UVM</div>
+            </div>
+          </div>
+          <div class="kc-preview">Synopsys 和 Cadence 出現在 Computex，代表 AI 晶片設計複雜度暴增，相關人才搶手。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>Synopsys（新思）和 Cadence（益華）出現在 <span class="cx">Computex</span>，反映了 AI 晶片設計複雜度的大幅提升。熟悉 Verilog/VHDL、RTL 設計、驗證方法學（UVM）的工程師，在台灣、美國、歐洲的半導體公司都是高薪搶手人才。</p>
+            <div class="kc-analogy-purple kc-analogy">如果你的學校有開「數位電路設計」或「VLSI 設計」課，認真修是值得的。進台積電、聯發科、NVIDIA 台灣辦公室的 IC 設計工程師，起薪在台灣科技業中屬於頂端。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-expert">🏗️</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-expert">專業</span>
+              <div class="kc-title">系統整合商的數位轉型機會</div>
+              <div class="kc-subtitle">資管系可以切入的角度</div>
+            </div>
+          </div>
+          <div class="kc-preview">鴻海、廣達、緯穎不只是工廠——它們在建 AI 伺服器解決方案，需要懂供應鏈 IT 的人才。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>鴻海（Foxconn）、廣達、緯穎（Wiwynn）不只是「工廠」，現在它們都在開發完整的 AI 伺服器解決方案。資管系出身的人若能理解供應鏈資訊系統、ERP 整合、智慧製造，在這類公司的數位轉型部門有很高的價值。</p>
+            <div class="kc-analogy-purple kc-analogy">資管系的核心就是「讓 IT 幫助企業更有效率」——這在 AI 製造時代特別有價值。鴻海等公司正在把工廠數位化，需要懂業務流程又懂 IT 系統的人，剛好是資管的強項。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-expert">🤖</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-expert">專業</span>
+              <div class="kc-title">Physical AI 帶來的軟體機會</div>
+              <div class="kc-subtitle">ROS 2 / RTOS / 電腦視覺</div>
+            </div>
+          </div>
+          <div class="kc-preview">機器人、自動駕駛、工廠自動化需要大量軟體工程師——這是 CS 學生的新藍海。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p>機器人、自動駕駛、工廠自動化都需要大量軟體工程——ROS 2（機器人作業系統）、即時作業系統（RTOS）、電腦視覺、感測器融合。</p>
+            <p>NXP 和 Qualcomm 的 Dragonwing 平台正是這類應用的底層，若有興趣可從這些公司的開發者生態切入，或修習嵌入式系統、控制理論相關課程。</p>
+            <div class="kc-analogy-purple kc-analogy">作業系統課學到的排程、中斷處理，在 RTOS 上都是真實需求。機器人手臂要在 1ms 內反應，容不下半點排程延遲——這是比網頁開發難得多，但薪水也高得多的領域。</div>
+          </div>
+        </div>
+        <div class="kc-card" onclick="toggleCard(this)">
+          <div class="kc-card-top">
+            <div class="kc-icon icon-expert">⚖️</div>
+            <div class="kc-card-header">
+              <span class="kc-badge badge-expert">專業</span>
+              <div class="kc-title">開放標準與生態系政治</div>
+              <div class="kc-subtitle">CXL / SYCL / ROCm 的標準之戰</div>
+            </div>
+          </div>
+          <div class="kc-preview">誰來定義 AI 硬體標準？NVIDIA 用私有標準鎖住生態，Intel/AMD/Google 推開放標準反制。</div>
+          <div class="kc-toggle"><span>展開說明</span><span class="kc-toggle-arrow">▼</span></div>
+          <div class="kc-body">
+            <p><span class="cx">Computex</span> 背後一個大主題是：誰來定義 AI 硬體的標準？NVIDIA 用私有標準（CUDA、NVLink）鎖住生態；Intel、AMD、Google 推動開放標準（CXL、SYCL、ROCm）。</p>
+            <p>這場標準戰爭決定了未來 10 年哪些公司可以長期收「平台稅」——對資訊管理和科技策略研究者而言，是極佳的產業研究切入點。</p>
+            <div class="kc-analogy-purple kc-analogy">資管系的「資訊系統策略」課程角度：平台生態系的鎖定效應（lock-in）是核心概念，NVIDIA vs 開放標準聯盟的競爭，是教科書等級的真實案例，值得深入研究。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><span class="cx">Computex</span> 2026 — AI Together &nbsp;|&nbsp; 資料整理製作，僅供學習參考</p>
+  <p style="margin-top:8px; opacity:0.6;">主辦單位：TAITRA 台灣對外貿易發展協會</p>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.toc a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+    links.forEach(a => {
+      const active = a.getAttribute('href') === '#' + current;
+      a.style.color = active ? 'var(--accent)' : '';
+      a.style.borderBottomColor = active ? 'var(--accent)' : 'transparent';
+    });
+  });
+
+  function toggleCard(card) {
+    card.classList.toggle('open');
+    const toggle = card.querySelector('.kc-toggle span:first-child');
+    if (toggle) toggle.textContent = card.classList.contains('open') ? '收起說明' : '展開說明';
+  }
+
+  function switchLevel(group, level, btn) {
+    const prefix = group + '-';
+    document.querySelectorAll('[id^="' + prefix + '"]').forEach(el => el.classList.remove('visible'));
+    const target = document.getElementById(prefix + level);
+    if (target) target.classList.add('visible');
+    btn.closest('.level-tab-row').querySelectorAll('.level-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
